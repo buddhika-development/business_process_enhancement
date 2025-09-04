@@ -2,7 +2,6 @@
 
 import { getBusinessDetailsByName } from "@/lib/databaseActions/business";
 import { getNICDetailsByNumber } from "@/lib/databaseActions/nic";
-import { supabase } from "@/lib/supabase/supabaseClient";
 import { BusinessDetailsInitialStateResponse } from "@/types/businessDetailsInitialState"
 
 export const submitBusinessDetails = async (
