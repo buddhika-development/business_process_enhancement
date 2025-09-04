@@ -13,6 +13,7 @@ export const submitBusinessDetails = async (
 
     const businessName = formData.get('businessName');
     const landlordNIC = formData.get('landlordNIC');
+    const landloadName = formData.get("landlordName")
 
     // check business name availability
     const businessNameCheck = await getBusinessDetailsByName(businessName as string);
@@ -40,6 +41,18 @@ export const submitBusinessDetails = async (
                     landlordNIC: 'Invalid Landlord NIC number'
                 }
             };
+        }
+
+        
+        if(landlordNICValidityCheck.full_name != landloadName){
+            console.log(landlordNICValidityCheck.full_name != landloadName)
+            return {
+                success : false,
+                message : "Something went wrong in landload name.",
+                error : {
+                    landloadName : "Check the landload name again."
+                }
+            }
         }
     }
     
