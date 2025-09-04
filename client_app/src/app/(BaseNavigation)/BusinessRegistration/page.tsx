@@ -1,4 +1,5 @@
 import BusinessDetailsForm from '@/components/layout/BusinessRegistration/BusinessDetailsForm'
+import BusinessOwnerDetails from '@/components/layout/BusinessRegistration/BusinessOwnerDetails'
 import Title from '@/components/ui/Title/Title'
 import React from 'react'
 
@@ -8,7 +9,8 @@ const page = () => {
       <Title className='mb-10'>
         Let's <span className='highlited-text'>Register</span> Your Business
       </Title>
-      <BusinessDetailsForm />
+      {/* <BusinessDetailsForm /> */}
+      <BusinessOwnerDetails />
     </div>
   )
 }
