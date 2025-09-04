@@ -33,4 +33,11 @@ export type BusinessDetailsInitialStateResponse = {
     success: boolean;
     message: string;
     data?: BusinessDetailsInitialState;
+    error?: any;
+};
+
+export const businessDetailsInitialStateResponse: BusinessDetailsInitialStateResponse = {
+    success: false,
+    message: '',
+    data: undefined,
 };

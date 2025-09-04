@@ -1,20 +1,28 @@
 'use client'
 
+import { submitBusinessDetails } from '@/actions/BusinessDetailsFormAction';
 import SectionTitle from '@/components/ui/Title/SectionTitle'
-import React, { useState } from 'react'
+import { businessDetailsInitialStateResponse } from '@/types/businessDetailsInitialState';
+import React, { useActionState, useState } from 'react'
 
 const BusinessDetailsForm = () => {
   const [propertyOwned, setPropertyOwned] = useState<string>('');
+  const [state, action, isPending] = useActionState(submitBusinessDetails, businessDetailsInitialStateResponse );
 
   return (
     <div>
-        <form action="#" className='flex flex-col gap-8'>
+        <form action={action} className='flex flex-col gap-8'>
             {/* business basic details */}
             <div className='form-section'>
                 <SectionTitle>Business Details</SectionTitle>
                 <div className="input-section">
                     <label htmlFor="businessName">Business Name</label>
                     <input type="text" name="businessName" id="businessName" placeholder="Business Name" />
+                    {
+                        state?.error?.businessName && (
+                            <p className='text-sm text-red-500 mt-1'>{state.error.businessName}</p>
+                        )
+                    }
                 </div>
 
                 {/* business type details */}
@@ -91,6 +99,11 @@ const BusinessDetailsForm = () => {
                         <div className="input-section">
                             <label htmlFor="landlordNIC">Landlord NIC</label>
                             <input type="text" name="landlordNIC" id="landlordNIC" placeholder="Landlord NIC" />
+                            {
+                                state?.error?.landlordNIC && (
+                                    <p className='text-sm text-red-500 mt-1'>{state.error.landlordNIC}</p>
+                                )
+                            }
                         </div>
                     </div>
                     <div className="input-section">
@@ -110,7 +123,11 @@ const BusinessDetailsForm = () => {
                 </div>
             </div>
             
-            <button type="submit" className='bg-primary text-sm h-[46px] font-semibold text-white px-10 py-2 mt-2 cursor-pointer rounded-xl hover:bg-accent transition'>Submit</button>
+            <button type="submit" className='bg-primary text-sm h-[46px] font-semibold text-white px-10 py-2 mt-2 cursor-pointer rounded-xl hover:bg-accent transition'>
+                {
+                    isPending ? 'Submitting...' : 'Submit'
+                }
+            </button>
         </form>
     </div>
   )
