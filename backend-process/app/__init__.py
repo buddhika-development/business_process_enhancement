@@ -1,8 +1,8 @@
 import os
 from flask import Flask
 from dotenv import load_dotenv
-
 from app.Config import ProductionConfig, DevelopmentConfig
+from app.libs.gemini_connection import GeminiConnection
 
 load_dotenv()
 

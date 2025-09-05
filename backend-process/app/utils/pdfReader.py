@@ -1,10 +1,9 @@
 from pypdf import PdfReader
 
-def pdfContentScraper(file) -> str | None:
+def pdf_content_scraper(file) -> str | None:
     document_content = ""
 
     try:
-
         document = PdfReader(file)
         pageCount = len(document.pages)
 
