@@ -3,19 +3,68 @@
 import { handleBusinessSupportDocumentUpload } from "@/actions/BusinessSupportDocumentForm";
 import SectionTitle from "@/components/ui/Title/SectionTitle";
 import { businessSupportDocumentResponse } from "@/types/businessSupportDocumentState";
-import React, { useActionState } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 
-const SupportedDocumentUploadForm = () => {
-  // These are just for showing selected file names, not for uploading
-  const [ownerNICName, setOwnerNICName] = React.useState<string>("");
-  const [gnCertificateName, setGnCertificateName] = React.useState<string>("");
-  const [affidavitName, setAffidavitName] = React.useState<string>("");
-  const [propertyOwnershipName, setPropertyOwnershipName] = React.useState<string>("");
+type SupportedDocumentsData = {
+  ownerNIC: File | null;
+  gnCertificate: File | null;
+  affidavit: File | null;
+  propertyOwnership: File | null;
+};
+
+type Props = {
+  onSubmit?: (data: SupportedDocumentsData) => void;
+  defaultValues?: SupportedDocumentsData | null;
+  onBack?: () => void;
+};
+
+const SupportedDocumentUploadForm = ({ onSubmit, defaultValues, onBack }: Props) => {
+  // Store the actual files and their names
+  const [formData, setFormData] = useState<SupportedDocumentsData>({
+    ownerNIC: defaultValues?.ownerNIC || null,
+    gnCertificate: defaultValues?.gnCertificate || null,
+    affidavit: defaultValues?.affidavit || null,
+    propertyOwnership: defaultValues?.propertyOwnership || null,
+  });
+
+  // These are for showing selected file names
+  const [ownerNICName, setOwnerNICName] = useState<string>(defaultValues?.ownerNIC?.name || "");
+  const [gnCertificateName, setGnCertificateName] = useState<string>(defaultValues?.gnCertificate?.name || "");
+  const [affidavitName, setAffidavitName] = useState<string>(defaultValues?.affidavit?.name || "");
+  const [propertyOwnershipName, setPropertyOwnershipName] = useState<string>(defaultValues?.propertyOwnership?.name || "");
 
   const [state, action, isPending] = useActionState(
     handleBusinessSupportDocumentUpload,
     businessSupportDocumentResponse
   );
+
+  // Handle file selection
+  const handleFileChange = (fieldName: keyof SupportedDocumentsData, file: File | null, fileName: string) => {
+    setFormData(prev => ({ ...prev, [fieldName]: file }));
+    
+    // Update the corresponding file name state
+    switch (fieldName) {
+      case 'ownerNIC':
+        setOwnerNICName(fileName);
+        break;
+      case 'gnCertificate':
+        setGnCertificateName(fileName);
+        break;
+      case 'affidavit':
+        setAffidavitName(fileName);
+        break;
+      case 'propertyOwnership':
+        setPropertyOwnershipName(fileName);
+        break;
+    }
+  };
+
+  // Call onSubmit when form submission is successful
+  useEffect(() => {
+    if (state?.success && onSubmit) {
+      onSubmit(formData);
+    }
+  }, [state?.success, onSubmit, formData]);
 
   return (
     <div>
@@ -51,7 +100,11 @@ const SupportedDocumentUploadForm = () => {
                 type="file"
                 className="hidden"
                 accept=".pdf,.jpg,.jpeg,.png"
-                onChange={(e) => setOwnerNICName(e.target.files?.[0]?.name ?? "")}
+                onChange={(e) => {
+                  const file = e.target.files?.[0] || null;
+                  const fileName = file?.name || "";
+                  handleFileChange('ownerNIC', file, fileName);
+                }}
               />
               <span className="text-sm text-gray-400">
                 PDF, JPG, or PNG. Max 10MB.
@@ -96,7 +149,11 @@ const SupportedDocumentUploadForm = () => {
                 type="file"
                 className="hidden"
                 accept=".pdf,.jpg,.jpeg,.png"
-                onChange={(e) => setGnCertificateName(e.target.files?.[0]?.name ?? "")}
+                onChange={(e) => {
+                  const file = e.target.files?.[0] || null;
+                  const fileName = file?.name || "";
+                  handleFileChange('gnCertificate', file, fileName);
+                }}
               />
               <span className="text-sm text-gray-400">
                 PDF, JPG, or PNG. Max 10MB.
@@ -149,7 +206,11 @@ const SupportedDocumentUploadForm = () => {
                 type="file"
                 className="hidden"
                 accept=".pdf,.jpg,.jpeg,.png"
-                onChange={(e) => setAffidavitName(e.target.files?.[0]?.name ?? "")}
+                onChange={(e) => {
+                  const file = e.target.files?.[0] || null;
+                  const fileName = file?.name || "";
+                  handleFileChange('affidavit', file, fileName);
+                }}
               />
               <span className="text-sm text-gray-400">
                 PDF, JPG, or PNG. Max 10MB.
@@ -202,7 +263,11 @@ const SupportedDocumentUploadForm = () => {
                 type="file"
                 className="hidden"
                 accept=".pdf,.jpg,.jpeg,.png"
-                onChange={(e) => setPropertyOwnershipName(e.target.files?.[0]?.name ?? "")}
+                onChange={(e) => {
+                  const file = e.target.files?.[0] || null;
+                  const fileName = file?.name || "";
+                  handleFileChange('propertyOwnership', file, fileName);
+                }}
               />
               <span className="text-sm text-gray-400">
                 PDF, JPG, or PNG. Max 10MB.
@@ -224,6 +289,15 @@ const SupportedDocumentUploadForm = () => {
         </div>
 
         <div className="flex gap-4">
+          {onBack && (
+            <button
+              type="button"
+              onClick={onBack}
+              className="bg-gray-500 text-sm h-[46px] font-semibold text-white px-10 py-2 mt-2 cursor-pointer rounded-xl hover:bg-gray-600 transition"
+            >
+              Back
+            </button>
+          )}
           <button
             type="submit"
             className="bg-primary text-sm h-[46px] font-semibold text-white px-10 py-2 mt-2 cursor-pointer rounded-xl hover:bg-accent transition"

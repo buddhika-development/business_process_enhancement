@@ -73,7 +73,7 @@ export const handleBusinessSupportDocumentUpload = async (
     const lastResponse: { [key: string]: any } = {};
 
     // console out the result
-    // console.log(result);
+    console.log(result);
     
     const gn_certificate_validity = result.gramasewalaCertificate.document_validity
     const property_ownership_validity = result.propertyOwnership.document_validity
@@ -88,21 +88,21 @@ export const handleBusinessSupportDocumentUpload = async (
       if(!gn_certificate_validity){
         lastResponse['gramasewalaCertificate'] = {
           success: false,
-          message: result.gramasewalaCertificate.error || 'Invalid GN Certificate',
+          message: result.gramasewalaCertificate.reason_for_success_or_false || 'Invalid GN Certificate',
         }
       }
 
       if(!property_ownership_validity){
         lastResponse['propertyOwnership'] = {
           success: false,
-          message: result.propertyOwnership.error || 'Invalid Property Ownership Document',
+          message: result.propertyOwnership.reason_for_success_or_false || 'Invalid Property Ownership Document',
         }
       }
 
       if(!affidavit_validity){
         lastResponse['affidavit'] = {
           success: false,
-          message: result.affidavit.error || 'Invalid Affidavit Document',
+          message: result.affidavit.reason_for_success_or_false || 'Invalid Affidavit Document',
         }
       }
       

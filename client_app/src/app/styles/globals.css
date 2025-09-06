@@ -67,3 +67,7 @@ label{
 .form-section{
   @apply flex flex-col gap-3
 }
+
+.btn{
+  @apply bg-primary text-sm h-[46px] font-semibold text-white px-10 py-2 mt-2 cursor-pointer rounded-xl hover:bg-accent transition
+}
