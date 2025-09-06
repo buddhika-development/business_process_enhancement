@@ -19,8 +19,8 @@ export const initialBusinessSupportDocumentState: BusinessSupportDocumentState =
 export type BusinessSupportDocumentResponse = {
   success: boolean;
   message: string;
-  data?: BusinessSupportDocumentState;
-  error?: any
+  data?: any;
+  error?: any 
 };
 
 export const businessSupportDocumentResponse: BusinessSupportDocumentResponse = {
