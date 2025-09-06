@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 
 from app.utils.DocumentContentScraper import document_content_scraper
+from app.utils.pdfReader import pdf_content_scraper
 
 document_validate_bp = Blueprint("document_validate", __name__, url_prefix="/api/document-validate")
 
@@ -14,6 +15,10 @@ def document_validator_health():
 # gramasewaka document validator
 @document_validate_bp.route("/gnc", methods = ["POST"])
 def gramasewaka_certificate_validate():
+    """
+        This function and route is responsible for validate the gramasewaka certificate
+        :return:
+    """
 
     try:
         gn_certificate = request.files.get("gnc")
@@ -25,7 +30,7 @@ def gramasewaka_certificate_validate():
                 "error": "No required files provided"
             }), 400
 
-        # result = documentContentScraper(gn_certificate)
+        print(gn_certificate)
         result, persist_location = document_content_scraper(
             key="gnc",
             file=gn_certificate,
@@ -53,6 +58,7 @@ def gramasewaka_certificate_validate():
         return jsonify({
             "error": f"Processing failed: {str(e)}"
         }), 500
+
 
 @document_validate_bp.route("/lease", methods=["POST"])
 def lease_document_validation():
@@ -97,6 +103,7 @@ def lease_document_validation():
             "error": f"Processing failed: {str(e)}"
         }), 500
 
+
 @document_validate_bp.route("/affidavit", methods=["POST"])
 def affidavit_document_validation():
     try:
@@ -139,3 +146,21 @@ def affidavit_document_validation():
         return jsonify({
             "error": f"Processing failed: {str(e)}"
         }), 500
+
+@document_validate_bp.route("/gnc/upload", methods=["POST"])
+def gnc_testing_func():
+    uploaded_file = request.files.get("file")
+    if not uploaded_file:
+        return jsonify({
+            "success": False,
+            "message": "No file received"
+        }), 400
+
+    pdf_content = pdf_content_scraper(uploaded_file)
+    print("Uploaded file name:", pdf_content)
+
+    return jsonify({
+        "success": True,
+        "message": f"Files received successfully: {uploaded_file.filename}",
+        "filename": uploaded_file.filename
+    }), 200
