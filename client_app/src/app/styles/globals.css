@@ -42,12 +42,12 @@ body{
 /* input styles */
 /* =========================== */
 input{ 
-  @apply h-[46px] text-sm border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
+  @apply h-[46px] text-sm bg-white border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
   placeholder:text-sm
 }
 
 textarea{
-  @apply border text-sm border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
+  @apply border text-sm bg-white border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
   placeholder:text-sm
 }
 
