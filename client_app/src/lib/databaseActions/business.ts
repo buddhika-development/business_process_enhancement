@@ -1,4 +1,6 @@
+import { NONAME } from "dns";
 import { supabase } from "../supabase/supabaseClient";
+import { createBusinessLandload } from "./landload";
 
 export const getAllBusinessDetails = async () => {
     try {
@@ -43,3 +45,42 @@ export const getBusinessDetailsByName = async (businessName: string) => {
     
     return business_details;
 };
+
+
+export const createBusinessDetails = async (businessData: any) => {
+
+    console.log(businessData)
+
+    const { data, error } = await supabase
+    .from('business_details')
+    .insert([{ 
+        business_name: businessData.businessName,
+        business_type : businessData.businessType,
+        business_category: businessData.businessCategory,
+        business_address: businessData.businessAddress,
+        business_city: businessData.businessCity,
+        business_state: businessData.businessState,
+        property_owned: businessData.propertyOwned,
+        business_description: businessData.businessDescription
+     }])
+    .select()
+
+    
+    if(error) {
+        console.log(`Something went wrong in business data insertion process. ${error}`)
+        return null
+    }
+    
+    if(businessData.propertyOwned != "owned"){
+        const landloadId = createBusinessLandload(
+            data[0].id,
+            businessData.landlordNIC,
+            businessData.landlordContact
+        )
+
+        console.log(landloadId)
+    }
+
+    return data[0].id
+
+}
