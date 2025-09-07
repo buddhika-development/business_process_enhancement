@@ -1,7 +1,7 @@
 import React from 'react'
 import SectionTitle from '../ui/Title/SectionTitle'
 
-const WhyUsCard = ({title, content, icon} : {
+const Card = ({title, content, icon} : {
     title ?: string,
     content ?: string,
     icon ?: React.ReactNode
@@ -26,4 +26,4 @@ const WhyUsCard = ({title, content, icon} : {
   )
 }
 
-export default WhyUsCard
+export default Card
