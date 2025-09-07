@@ -6,6 +6,7 @@ import SupportedDocumentUploadForm from "@/components/layout/BusinessRegistratio
 import Title from "@/components/ui/Title/Title";
 import { createBusinessDetails } from "@/lib/databaseActions/business";
 import { createBusinessOwnerDetails } from "@/lib/databaseActions/businessOwner";
+import { createDocument } from "@/lib/databaseActions/documentHandling";
 import React, { useState } from "react";
 
 // Types for form data
@@ -73,8 +74,9 @@ const MultiStepBusinessRegistration = () => {
 
   const dataInsertionAction = async () => {
     setIsLoading(true)
-    const createdBusiness = await createBusinessDetails(businessDetails);
-    const createdBusinessOwnerDetails = await createBusinessOwnerDetails(ownerDetails);
+    // const createdBusiness = await createBusinessDetails(businessDetails);
+    // const createdBusinessOwnerDetails = await createBusinessOwnerDetails(ownerDetails);
+    const createdSupportedDocuments = await createDocument(documents);
 
     // send email for the applicant
     
