@@ -76,6 +76,9 @@ const MultiStepBusinessRegistration = () => {
     const createdBusiness = await createBusinessDetails(businessDetails);
     const createdBusinessOwnerDetails = await createBusinessOwnerDetails(ownerDetails);
 
+    // send email for the applicant
+    
+    
     setIsLoading(false)
   }
 

@@ -30,7 +30,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   const [inputValue, setInputValue] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const [chatHistory, setChatHistory] = useState<Array<{role: 'user' | 'assistant', content: string}>>([])
-  const [connectionStatus, setConnectionStatus] = useState<'connected' | 'disconnected' | 'Thinking'>('connected')
+  const [connectionStatus, setConnectionStatus] = useState<'connected' | 'disconnected' | 'connecting'>('connected')
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   const scrollToBottom = () => {
