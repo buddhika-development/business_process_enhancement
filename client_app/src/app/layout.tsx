@@ -4,6 +4,7 @@ import "./styles/globals.css";
 import { Poppins } from "next/font/google";
 import Header from "@/components/layout/Global/Header";
 import Footer from "@/components/layout/Global/Footer";
+import FloatingChatButton from "@/components/ui/Global/FloatingChatButton";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -33,6 +34,7 @@ export default function RootLayout({
             {children}
           </main>
           <Footer />
+          <FloatingChatButton />
         </div>
       </body>
     </html>
