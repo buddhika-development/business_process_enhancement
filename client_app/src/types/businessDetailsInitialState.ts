@@ -8,9 +8,9 @@ export type BusinessDetailsInitialState = {
     businessState: string;
     businessZip: string;
     propertyOwned: string;
-    landlordName: string;
-    landlordNIC: string;
-    landlordContact: string;
+    landlordName?: string;
+    landlordNIC?: string;
+    landlordContact?: string;
     businessDescription: string;
 };
 
