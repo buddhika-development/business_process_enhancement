@@ -17,6 +17,7 @@ class LeaseCertificateDetails(BaseModel):
     name : str
     email : str
     date : str
+    letter_owner: str
 
 class LeastCertification(Prompt):
 
@@ -27,6 +28,7 @@ class LeastCertification(Prompt):
         self.name = name
         self.letter_content = content
         self.address = address
+
 
     def invoker(self):
         """

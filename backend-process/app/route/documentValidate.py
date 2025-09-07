@@ -52,8 +52,7 @@ def gramasewaka_certificate_validate():
 
         response_data["persist_location"] = persist_location
 
-        print(response_data["document_validity"])
-        gn_insertion = document_data_insert("Gramasewaka", response_data["gramasewaka_name"], response_data["email"], response_data["persist_location"], result.document_validity, result.reason_for_success_or_false)
+        gn_insertion = document_data_insert("Gramasewaka", response_data["gramasewaka_name"], response_data["email"], response_data["persist_location"], result.document_validity, result.reason_for_success_or_false, response_data["letter_owner"])
         return jsonify(response_data), 200
 
     except Exception as e:
@@ -98,7 +97,7 @@ def lease_document_validation():
 
         response_data["persist_location"] = persist_location
 
-        lease_insertion = document_data_insert("Leaser", response_data["name"], response_data["email"], response_data["persist_location"], result.document_validity, result.reason_for_success_or_false)
+        lease_insertion = document_data_insert("Leaser", response_data["name"], response_data["email"], response_data["persist_location"], result.document_validity, result.reason_for_success_or_false, response_data["letter_owner"])
         return jsonify(response_data), 200
 
     except Exception as e:
@@ -143,7 +142,7 @@ def affidavit_document_validation():
 
         response_data["persist_location"] = persist_location
 
-        affidavit_insertion = document_data_insert("Affidavit provider", response_data["name"], response_data["email"], response_data["persist_location"], result.document_validity, result.reason_for_success_or_false)
+        affidavit_insertion = document_data_insert("Affidavit provider", response_data["name"], response_data["email"], response_data["persist_location"], result.document_validity, result.reason_for_success_or_false, response_data["letter_owner"])
         return jsonify(response_data), 200
 
     except Exception as e:

@@ -1,6 +1,6 @@
 from app.libs.SupabaseClient import supabase
 
-def document_data_insert(position, name, mail, location, validity, reason):
+def document_data_insert(position, name, mail, location, validity, reason, owner):
 
     data, error = supabase.table("business_document").insert({
         "responsible_person_position" : position,
@@ -8,7 +8,8 @@ def document_data_insert(position, name, mail, location, validity, reason):
         "responsible_person_contact" : mail,
         "persist_location" : location,
         "authenticity" : validity,
-        "reason" : reason
+        "reason" : reason,
+        "applicant_name" : owner
     }).execute()
 
     if error:

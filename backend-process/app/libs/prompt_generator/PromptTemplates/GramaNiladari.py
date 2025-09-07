@@ -17,6 +17,7 @@ class GramaNiladariCertificateDetails(BaseModel):
     gramasewaka_name : str
     email : str
     date : str
+    letter_owner: str
 
 class GramaNiladariCertification(Prompt):
 
