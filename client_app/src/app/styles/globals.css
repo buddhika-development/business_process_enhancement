@@ -69,5 +69,5 @@ label{
 }
 
 .btn{
-  @apply bg-primary text-sm h-[46px] font-semibold text-white px-10 py-2 mt-2 cursor-pointer rounded-xl hover:bg-accent transition
+  @apply bg-primary text-sm h-[46px] font-semibold text-white px-10 py-2 mt-2 cursor-pointer rounded-xl hover:bg-accent transition flex items-center justify-center
 }
