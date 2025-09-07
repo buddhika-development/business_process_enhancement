@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-
+from app.utils.databaseAction.supportDocument import document_data_insert
 from app.utils.DocumentContentScraper import document_content_scraper
 from app.utils.pdfReader import pdf_content_scraper
 
@@ -52,6 +52,8 @@ def gramasewaka_certificate_validate():
 
         response_data["persist_location"] = persist_location
 
+        print(response_data["document_validity"])
+        gn_insertion = document_data_insert("Gramasewaka", response_data["gramasewaka_name"], response_data["email"], response_data["persist_location"], result.document_validity, result.reason_for_success_or_false)
         return jsonify(response_data), 200
 
     except Exception as e:
@@ -96,6 +98,7 @@ def lease_document_validation():
 
         response_data["persist_location"] = persist_location
 
+        lease_insertion = document_data_insert("Leaser", response_data["name"], response_data["email"], response_data["persist_location"], result.document_validity, result.reason_for_success_or_false)
         return jsonify(response_data), 200
 
     except Exception as e:
@@ -140,27 +143,10 @@ def affidavit_document_validation():
 
         response_data["persist_location"] = persist_location
 
+        affidavit_insertion = document_data_insert("Affidavit provider", response_data["name"], response_data["email"], response_data["persist_location"], result.document_validity, result.reason_for_success_or_false)
         return jsonify(response_data), 200
 
     except Exception as e:
         return jsonify({
             "error": f"Processing failed: {str(e)}"
         }), 500
-
-@document_validate_bp.route("/gnc/upload", methods=["POST"])
-def gnc_testing_func():
-    uploaded_file = request.files.get("file")
-    if not uploaded_file:
-        return jsonify({
-            "success": False,
-            "message": "No file received"
-        }), 400
-
-    pdf_content = pdf_content_scraper(uploaded_file)
-    print("Uploaded file name:", pdf_content)
-
-    return jsonify({
-        "success": True,
-        "message": f"Files received successfully: {uploaded_file.filename}",
-        "filename": uploaded_file.filename
-    }), 200
