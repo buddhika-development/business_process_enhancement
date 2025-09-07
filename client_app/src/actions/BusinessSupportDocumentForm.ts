@@ -45,17 +45,17 @@ export const handleBusinessSupportDocumentUpload = async (
       );
     }
 
-    const gnResponse = await fetch('http://127.0.0.1:8000/api/document-validate/gnc', {
+    const gnResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/document-validate/gnc`, {
       method: 'POST',
       body: uploadForm ,
     });
 
-    const ownershipResponse = await fetch('http://127.0.0.1:8000/api/document-validate/lease', {
+    const ownershipResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/document-validate/lease`, {
       method: 'POST',
       body: ownershipForm,
     });
 
-    const affidavitResponse = await fetch('http://127.0.0.1:8000/api/document-validate/affidavit', {
+    const affidavitResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/document-validate/affidavit`, {
       method: 'POST',
       body: affidavitForm,
     });
