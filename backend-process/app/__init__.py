@@ -15,8 +15,10 @@ def create_app():
     # register the routes
     from app.route.health import health_bp
     from app.route.documentValidate import document_validate_bp
+    from app.route.chat import chat_bp
 
     app.register_blueprint(health_bp)
     app.register_blueprint(document_validate_bp)
+    app.register_blueprint(chat_bp)
 
     return app
