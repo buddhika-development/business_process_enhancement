@@ -4,6 +4,9 @@ import BusinessDetailsForm from "@/components/layout/BusinessRegistration/Busine
 import BusinessOwnerDetails from "@/components/layout/BusinessRegistration/BusinessOwnerDetails";
 import SupportedDocumentUploadForm from "@/components/layout/BusinessRegistration/SupportedDocumentUploadForm";
 import Title from "@/components/ui/Title/Title";
+import { createBusinessDetails } from "@/lib/databaseActions/business";
+import { createBusinessOwnerDetails } from "@/lib/databaseActions/businessOwner";
+import { createDocument } from "@/lib/databaseActions/documentHandling";
 import React, { useState } from "react";
 
 // Types for form data
@@ -49,6 +52,8 @@ const MultiStepBusinessRegistration = () => {
   const [ownerDetails, setOwnerDetails] = useState<BusinessOwnerDetailsData | null>(null);
   const [documents, setDocuments] = useState<SupportedDocumentsData | null>(null);
 
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
   // Step 1: Business Details Form - show BusinessOwnerDetails after success
   const handleBusinessDetailsSuccess = (data: BusinessDetailsData) => {
     setBusinessDetails(data);
@@ -66,6 +71,18 @@ const MultiStepBusinessRegistration = () => {
     setDocuments(data);
     setStep(4);
   };
+
+  const dataInsertionAction = async () => {
+    setIsLoading(true)
+    // const createdBusiness = await createBusinessDetails(businessDetails);
+    // const createdBusinessOwnerDetails = await createBusinessOwnerDetails(ownerDetails);
+    const createdSupportedDocuments = await createDocument(documents);
+
+    // send email for the applicant
+    
+    
+    setIsLoading(false)
+  }
 
   return (
     <div className="body-content py-10">
@@ -227,8 +244,11 @@ const MultiStepBusinessRegistration = () => {
           <div>
             <button
               className="btn"
+              onClick={dataInsertionAction}
             >
-              Confirm Registration
+              {
+                isLoading ? "Processing" : "Confirm Registration"
+              }
             </button>
           </div>
         </div>

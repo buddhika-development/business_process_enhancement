@@ -42,12 +42,12 @@ body{
 /* input styles */
 /* =========================== */
 input{ 
-  @apply h-[46px] text-sm border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
+  @apply h-[46px] text-sm bg-white border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
   placeholder:text-sm
 }
 
 textarea{
-  @apply border text-sm border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
+  @apply border text-sm bg-white border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
   placeholder:text-sm
 }
 
@@ -69,5 +69,7 @@ label{
 }
 
 .btn{
-  @apply bg-primary text-sm h-[46px] font-semibold text-white px-10 py-2 mt-2 cursor-pointer rounded-xl hover:bg-accent transition
+  @apply bg-primary text-sm h-[46px] font-semibold text-white px-10 py-2 mt-2 cursor-pointer rounded-xl hover:bg-accent transition flex items-center justify-center
 }
+
+

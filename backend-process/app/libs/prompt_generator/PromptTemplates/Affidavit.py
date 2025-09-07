@@ -17,6 +17,7 @@ class AffidavitCertificateDetails(BaseModel):
     name : str
     email : str
     date : str
+    letter_owner : str
 
 class AffidavitCertification(Prompt):
 
